@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
+    xmlns:android         = "http://schemas.android.com/apk/res/android"
+    android:orientation   = "vertical"
+    android:layout_width  = "match_parent"
+    android:layout_height = "match_parent"
+    android:weightSum     = "1"
+    android:gravity       = "center_vertical|center_horizontal">
+
+    <TextView
+        android:layout_width   = "wrap_content"
+        android:layout_height  = "wrap_content"
+        android:textAppearance = "?android:attr/textAppearanceLarge"
+        android:text           = "Create New Account"
+        android:layout_weight  = "0.07"
+        android:textStyle      = "bold" />
+
+    <!--  first Name Label -->
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="First Name"/>
+    <EditText android:id="@+id/firstName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="20dip"/>
+
+    <!--  middle Name Label -->
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="Middle Name"/>
+    <EditText android:id="@+id/middleName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="20dip"/>
+
+    <!--  last name Label -->
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="Last Name"/>
+    <EditText android:id="@+id/lastName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="20dip"/>
+
+    <!--  user name Label -->
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="User Name"/>
+    <EditText android:id="@+id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="20dip"/>
+
+    <!--  password Label -->
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="Password"/>
+    <EditText android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:inputType="textPassword"
+        android:layout_marginBottom="20dip"/>
+
+    <!--  phone number name Label -->
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="Phone Number"/>
+    <EditText android:id="@+id/phoneNumber"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="20dip"/>
+
+    <Button
+        android:layout_width  = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text          = "SIGNUP"
+        android:id            = "@+id/signup"
+        android:onClick="signUp"        />
+
+</LinearLayout>
+    </ScrollView>

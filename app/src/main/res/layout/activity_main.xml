@@ -1,0 +1,43 @@
+<LinearLayout
+    xmlns:android         = "http://schemas.android.com/apk/res/android"
+    android:orientation   = "vertical"
+    android:layout_width  = "match_parent"
+    android:layout_height = "match_parent"
+    android:weightSum     = "1"
+    android:gravity       = "center_vertical|center_horizontal">
+
+    <TextView
+        android:layout_width   = "wrap_content"
+        android:layout_height  = "wrap_content"
+        android:textAppearance = "?android:attr/textAppearanceLarge"
+        android:text           = "Customer Login"
+        android:layout_weight  = "0.07"
+        android:textStyle      = "bold" />
+    <EditText
+        android:layout_width  = "216dp"
+        android:layout_height = "wrap_content"
+        android:id            = "@+id/name"
+        android:hint="Username" />
+
+    <EditText
+        android:layout_width  = "216dp"
+        android:layout_height = "wrap_content"
+        android:inputType="textPassword"
+        android:id            = "@+id/password"
+        android:hint="Password" />
+
+    <Button
+        android:layout_width  = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text          = "LOGIN"
+        android:id            = "@+id/login"
+        android:onClick="checkLogin"        />
+    <Button
+        android:layout_width  = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text          = "SIGNUP"
+        android:id            = "@+id/signup"
+        android:onClick="signUp"        />
+
+
+</LinearLayout>
