@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // Triggers when create account Button clicked
     public void signUp(View arg0){
-        Intent intent = new Intent(MainActivity.this,NextActivity.class);
+        Intent intent = new Intent(MainActivity.this,SignupActivity.class);
         startActivity(intent);
 
     }

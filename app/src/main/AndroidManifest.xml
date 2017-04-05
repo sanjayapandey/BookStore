@@ -23,8 +23,6 @@
             android:label="Dashboard" />
         <activity android:name =".SignupActivity"
             android:label="Sign Up" />
-        <activity android:name =".NextActivity"
-            android:label="Next Activity" />
         <activity android:name =".CartActivity"
             android:label="Cart" />
     </application>
