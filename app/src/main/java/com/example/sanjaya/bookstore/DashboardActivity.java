@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,11 +42,11 @@ import java.util.logging.Logger;
 public class DashboardActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     private final String DASHBOARD_SERVICE_URL = CommonConstant.BASE_URL+"dashboardService.php";
+    private final String CART_SAVE_SERVICE_URL = CommonConstant.BASE_URL+"createCartService.php";
     private EditText etSearchKey;
     private String myJSON;
     JSONArray books = null;
     ArrayList<HashMap<String, String>> bookList;
-    private ArrayList<HashMap<String, Integer>> cartList = new ArrayList<HashMap<String,Integer>>();
     private HashSet<String> uniqueCart = new HashSet<>();
 
     ListView list;
@@ -69,24 +72,17 @@ public class DashboardActivity extends AppCompatActivity {
     public void addToCart(View arg0){
         CheckBox cb;
         ListView mainListView = (ListView) findViewById(R.id.listView);
-        String a = "added to cart:";
         for (int x = 0; x<mainListView.getChildCount();x++){
             cb = (CheckBox)mainListView.getChildAt(x).findViewById(R.id.checkbox);
             if(cb.isChecked()){
                 //check if already exists or not
                 if(uniqueCart.add(cb.getText().toString())) {
-                    HashMap<String, Integer> cart = new HashMap<String, Integer>();
-                    cart.put(cb.getText().toString(), 1);
-                    cartList.add(cart);
+                    //save to database
+                    cartSave(cb.getText().toString(),28,1);
                 }
             }
         }
         Toast.makeText(DashboardActivity.this, "added to cart!", Toast.LENGTH_LONG).show();
-    }
-
-    public void goToCart(View arg0){
-        Intent intent = new Intent(DashboardActivity.this,CartActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -112,8 +108,8 @@ public class DashboardActivity extends AppCompatActivity {
             Intent i = new Intent( DashboardActivity.this, MainActivity.class );
             startActivity( i );
         }else if ( id == R.id.action_cart){
-            Intent i = new Intent( DashboardActivity.this, CartActivity.class );
-            startActivity( i );
+           Intent i = new Intent( DashboardActivity.this, CartActivity.class );
+           startActivity( i );
         }
         return super.onOptionsItemSelected( item );
     }
@@ -198,5 +194,29 @@ public class DashboardActivity extends AppCompatActivity {
 
         ServiceClass serviceClass= new ServiceClass();
         serviceClass.execute(searchKey);
+    }
+
+    private void cartSave(String ISBN, int customer_id, int quantity) {
+
+        class ServiceClass extends AsyncTask<String, Void, String> {
+            ProgressDialog loading;
+            ServiceHandler serviceHandler = new ServiceHandler();
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                HashMap<String, String> data = new HashMap<String, String>();
+                data.put("ISBN", params[0]);
+                data.put("customer_id", params[1]);
+                data.put("quantity", params[2]);
+
+                String result = serviceHandler.sendPostRequest(CART_SAVE_SERVICE_URL, data);
+
+                return result;
+            }
+        }
+
+        ServiceClass serviceClass = new ServiceClass();
+        serviceClass.execute(ISBN, String.valueOf(customer_id), String.valueOf(quantity));
     }
 }

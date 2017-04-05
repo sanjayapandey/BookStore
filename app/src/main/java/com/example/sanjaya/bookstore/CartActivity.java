@@ -3,6 +3,7 @@ package com.example.sanjaya.bookstore;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,10 +32,12 @@ import java.util.HashSet;
 public class CartActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     private final String DASHBOARD_SERVICE_URL = CommonConstant.BASE_URL+"dashboardService.php";
+    private final String CART_SERVICE_URL = CommonConstant.BASE_URL+"cartService.php";
     ArrayList<HashMap<String, String>> bookList;
     private ArrayList<HashMap<String, Integer>> cartList = new ArrayList<HashMap<String,Integer>>();
     private HashSet<String> uniqueCart = new HashSet<>();
-
+    private String myJSON;
+    JSONArray books = null;
     ListView list;
 
     @Override
@@ -43,6 +46,8 @@ public class CartActivity extends AppCompatActivity {
         setContentView( R.layout.activity_cart);
         list = (ListView) findViewById(R.id.listView);
         bookList = new ArrayList<HashMap<String,String>>();
+        //construct book list
+        getCartData(28);
     }
 
     public void addToCart(View arg0){
@@ -92,7 +97,7 @@ public class CartActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected( item );
     }
-    private void displayData(final String searchKey){
+    private void getCartData(int customerId){
 
         class ServiceClass extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
@@ -108,15 +113,16 @@ public class CartActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 loading.dismiss();
+                myJSON = result;
                 showList();
             }
             @Override
             protected String doInBackground(String... params){
 
                 HashMap<String, String> data = new HashMap<String,String>();
-                data.put("searchTitle",params[0]);
+                data.put("customer_id",params[0]);
 
-                String result = serviceHandler.sendPostRequest(DASHBOARD_SERVICE_URL,data);
+                String result = serviceHandler.sendPostRequest(CART_SERVICE_URL,data);
 
                 String value= "";
                 try{
@@ -137,7 +143,7 @@ public class CartActivity extends AppCompatActivity {
                 return  value;
             }
             protected void showList(){
-                /*try {
+                try {
                     JSONObject jsonObj = new JSONObject(myJSON);
                     books = jsonObj.getJSONArray("result");
 
@@ -145,31 +151,33 @@ public class CartActivity extends AppCompatActivity {
                         JSONObject c = books.getJSONObject(i);
                         String ISBN = c.getString("ISBN");
                         String title = c.getString("title");
+                        String quantity = c.getString("quantity");
 
                         HashMap<String,String> book = new HashMap<String,String>();
 
                         book.put("ISBN",ISBN);
                         book.put("title",title);
+                        book.put("quantity",quantity);
                         bookList.add(book);
                     }
 
                     ListAdapter adapter = new SimpleAdapter(
-                            CartActivity.this, bookList, R.layout.table_view,
-                            new String[]{"ISBN","title"},
-                            new int[]{R.id.checkbox, R.id.title}
+                            CartActivity.this, bookList, R.layout.table_view_for_cart,
+                            new String[]{"ISBN","title", "quantity"},
+                            new int[]{R.id.ISBN, R.id.title, R.id.quantity}
                     );
 
                     list.setAdapter(adapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
 
             }
 
         }
 
         ServiceClass serviceClass= new ServiceClass();
-        serviceClass.execute(searchKey);
+        serviceClass.execute(String.valueOf(customerId));
     }
 }

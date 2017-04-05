@@ -11,23 +11,6 @@
         android:weightSum     = "10"
         android:gravity       = "center_vertical|center_horizontal">
 
-        <TextView
-            android:layout_width   = "wrap_content"
-            android:layout_height  = "wrap_content"
-            android:textAppearance = "?android:attr/textAppearanceLarge"
-            android:text           = "Cart"
-            android:layout_weight  = "0.07"
-            android:textStyle      = "bold" />
-
-        <!--  first Name Label -->
-
-        <TextView
-            android:layout_width   = "wrap_content"
-            android:layout_height  = "wrap_content"
-            android:textAppearance = "?android:attr/textAppearanceSmall"
-            android:textStyle      = "bold"
-            android:text           = "List Of Books On Cart" />
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="400dp"
