@@ -11,39 +11,29 @@
         android:weightSum     = "10"
         android:gravity       = "center_vertical|center_horizontal">
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content" android:orientation="horizontal"
+            android:layout_width="fill_parent">
+            <EditText android:id="@+id/searchKey"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:hint="Search by book name">
+
+            </EditText>
+
+            <Button android:text          = "SEARCH"
+                android:id            = "@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="search">
+            </Button>
+
+        </LinearLayout>
         <TextView
             android:layout_width   = "wrap_content"
             android:layout_height  = "wrap_content"
-            android:textAppearance = "?android:attr/textAppearanceLarge"
-            android:text           = "Dashboard"
-            android:layout_weight  = "0.07"
-            android:textStyle      = "bold" />
-
-        <!--  first Name Label -->
-
-        <EditText android:id="@+id/searchKey"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="20dip"
-            android:hint="Search by book name"
-            />
-        <Button
-            android:layout_width  = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:text          = "SEARCH"
-            android:id            = "@+id/search"
-            android:onClick="search"        />
-        <Button
-            android:layout_width  = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:text          = "CART"
-            android:id            = "@+id/cart"
-            android:onClick="goToCart"        />
-        <TextView
-            android:layout_width   = "wrap_content"
-            android:layout_height  = "wrap_content"
-            android:textAppearance = "?android:attr/textAppearanceSmall"
+            android:textAppearance = "?android:attr/textAppearanceMedium"
             android:textStyle      = "bold"
             android:text           = "List Of Books" />
 

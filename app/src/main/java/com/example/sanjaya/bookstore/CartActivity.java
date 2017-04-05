@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class CartActivity extends Activity {
+public class CartActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     private final String DASHBOARD_SERVICE_URL = CommonConstant.BASE_URL+"dashboardService.php";
     ArrayList<HashMap<String, String>> bookList;

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DashboardActivity extends Activity {
+public class DashboardActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     private final String DASHBOARD_SERVICE_URL = CommonConstant.BASE_URL+"dashboardService.php";
     private EditText etSearchKey;
@@ -109,6 +110,9 @@ public class DashboardActivity extends Activity {
         }
         else if ( id == R.id.action_logout ) {
             Intent i = new Intent( DashboardActivity.this, MainActivity.class );
+            startActivity( i );
+        }else if ( id == R.id.action_cart){
+            Intent i = new Intent( DashboardActivity.this, CartActivity.class );
             startActivity( i );
         }
         return super.onOptionsItemSelected( item );
