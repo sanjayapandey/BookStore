@@ -15,11 +15,13 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -33,34 +35,39 @@ public class CartActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     private final String DASHBOARD_SERVICE_URL = CommonConstant.BASE_URL+"dashboardService.php";
     private final String CART_SERVICE_URL = CommonConstant.BASE_URL+"cartService.php";
+    private final String CART_UPDATE_SERVICE_URL = CommonConstant.BASE_URL+"cartUpdateService.php";
     ArrayList<HashMap<String, String>> bookList;
     private ArrayList<HashMap<String, Integer>> cartList = new ArrayList<HashMap<String,Integer>>();
     private HashSet<String> uniqueCart = new HashSet<>();
     private String myJSON;
     JSONArray books = null;
     ListView list;
+    private int customerId;
 
     @Override
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_cart);
+        customerId = 28;
         list = (ListView) findViewById(R.id.listView);
         bookList = new ArrayList<HashMap<String,String>>();
         //construct book list
-        getCartData(28);
+        getCartData(customerId);
     }
 
-    public void addToCart(View arg0){
-        CheckBox cb;
+    public void updateCart(View arg0){
+        EditText etQuantity;
+        TextView tvISBN;
         ListView mainListView = (ListView) findViewById(R.id.listView);
-        for (int x = 0; x<mainListView.getChildCount();x++){
-            cb = (CheckBox)mainListView.getChildAt(x).findViewById(R.id.checkbox);
-            if(cb.isChecked()){
-                    HashMap<String, Integer> cart = new HashMap<String, Integer>();
-                    cart.put(cb.getText().toString(), 1);
-                    cartList.add(cart);
-            }
+        for (int x = 0; x<mainListView.getChildCount();x++) {
+            etQuantity = (EditText) mainListView.getChildAt(x).findViewById(R.id.quantity);
+            tvISBN = (TextView) mainListView.getChildAt(x).findViewById(R.id.ISBN);
+            //update table
+            updateCart(customerId, tvISBN.getText().toString(),Integer.parseInt(etQuantity.getText().toString()));
+
         }
+        Intent intent = new Intent(CartActivity.this,CartActivity.class);
+        startActivity(intent);
         Toast.makeText(CartActivity.this, "Cart Updated!", Toast.LENGTH_LONG).show();
     }
 
@@ -179,5 +186,28 @@ public class CartActivity extends AppCompatActivity {
 
         ServiceClass serviceClass= new ServiceClass();
         serviceClass.execute(String.valueOf(customerId));
+    }
+
+    private void updateCart(int customerId, String ISBN, int quantity){
+
+        class ServiceClass extends AsyncTask<String, Void, String> {
+            ProgressDialog loading;
+            ServiceHandler serviceHandler = new ServiceHandler();
+
+            @Override
+            protected String doInBackground(String... params){
+
+                HashMap<String, String> data = new HashMap<String,String>();
+                data.put("customer_id",params[0]);
+                data.put("ISBN", params[1]);
+                data.put("quantity", params[2]);
+
+                String result = serviceHandler.sendPostRequest(CART_UPDATE_SERVICE_URL,data);
+                return  result;
+            }
+        }
+
+        ServiceClass serviceClass= new ServiceClass();
+        serviceClass.execute(String.valueOf(customerId), ISBN, String.valueOf(quantity));
     }
 }
