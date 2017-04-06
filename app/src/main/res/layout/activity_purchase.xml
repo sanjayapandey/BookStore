@@ -1,0 +1,32 @@
+<LinearLayout
+xmlns:android         = "http://schemas.android.com/apk/res/android"
+android:orientation   = "vertical"
+android:layout_width  = "match_parent"
+android:layout_height = "match_parent"
+android:weightSum     = "1"
+android:gravity       = "center_vertical|center_horizontal">
+
+    <TextView
+    android:layout_width   = "wrap_content"
+    android:layout_height  = "wrap_content"
+    android:textAppearance = "?android:attr/textAppearanceLarge"
+    android:text           = "Success!!"
+    android:layout_weight  = "0.07"
+    android:textStyle      = "bold" />
+    <TextView
+        android:layout_width   = "wrap_content"
+        android:layout_height  = "wrap_content"
+        android:textAppearance = "?android:attr/textAppearanceLarge"
+        android:text           = "Thank you for shipping."
+        android:layout_weight  = "0.07"
+         />
+
+    <Button
+        android:layout_width  = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text          = "BACK TO DASHBOARD"
+        android:id            = "@+id/dashboard"
+        android:onClick="goToDashboard"        />
+
+
+</LinearLayout>

@@ -25,5 +25,7 @@
             android:label="@string/action_signup" />
         <activity android:name =".CartActivity"
             android:label="@string/action_cart" />
+        <activity android:name =".PurchaseActivity"
+            android:label="@string/action_purchase" />
     </application>
 </manifest>

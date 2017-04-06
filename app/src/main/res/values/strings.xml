@@ -7,6 +7,7 @@
     <string name="action_login">Login</string>
     <string name="action_dashboard">Dashboard</string>
     <string name="action_cart">My Cart</string>
+    <string name="action_purchase">Purchase</string>
     <string-array name="quantity_array">
         <item>0</item>
         <item>1</item>

@@ -37,6 +37,7 @@ public class CartActivity extends AppCompatActivity {
     private final String DASHBOARD_SERVICE_URL = CommonConstant.BASE_URL+"dashboardService.php";
     private final String CART_SERVICE_URL = CommonConstant.BASE_URL+"cartService.php";
     private final String CART_UPDATE_SERVICE_URL = CommonConstant.BASE_URL+"cartUpdateService.php";
+    private final String PURCHASE_SERVICE_URL = CommonConstant.BASE_URL+"purchaseService.php";
     ArrayList<HashMap<String, String>> bookList;
     private ArrayList<HashMap<String, Integer>> cartList = new ArrayList<HashMap<String,Integer>>();
     private HashSet<String> uniqueCart = new HashSet<>();
@@ -70,6 +71,10 @@ public class CartActivity extends AppCompatActivity {
         Intent intent = new Intent(CartActivity.this,CartActivity.class);
         startActivity(intent);
         Toast.makeText(CartActivity.this, "Cart updated!", Toast.LENGTH_LONG).show();
+    }
+
+    public void purchase(View arg0){
+        purchase(customerId);
     }
 
     public void goToDashboard(View arg0){
@@ -214,5 +219,48 @@ public class CartActivity extends AppCompatActivity {
 
         ServiceClass serviceClass= new ServiceClass();
         serviceClass.execute(String.valueOf(customerId), ISBN, String.valueOf(quantity));
+    }
+
+    private void purchase(int customerId){
+
+        class ServiceClass extends AsyncTask<String, Void, String> {
+            ProgressDialog loading;
+            ServiceHandler serviceHandler = new ServiceHandler();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(CartActivity.this, "Please Wait",null, true, true);
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                loading.dismiss();
+                if(result.equalsIgnoreCase("success"))
+                {
+                     /* Here launching another activity when login successful. If you persist login state
+                use sharedPreferences of Android. and logout button to clear sharedPreferences.
+                 */
+                    Intent intent = new Intent(CartActivity.this,PurchaseActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(CartActivity.this, "OOPs! Something went wrong.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            protected String doInBackground(String... params){
+
+                HashMap<String, String> data = new HashMap<String,String>();
+                data.put("customer_id",params[0]);
+
+                String result = serviceHandler.sendPostRequest(PURCHASE_SERVICE_URL,data);
+                return  result;
+            }
+        }
+
+        ServiceClass serviceClass= new ServiceClass();
+        serviceClass.execute(String.valueOf(customerId));
     }
 }
