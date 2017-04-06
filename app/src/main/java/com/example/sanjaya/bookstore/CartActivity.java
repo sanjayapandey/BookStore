@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -53,6 +54,8 @@ public class CartActivity extends AppCompatActivity {
         bookList = new ArrayList<HashMap<String,String>>();
         //construct book list
         getCartData(customerId);
+        TextView tvTotal = (TextView)findViewById(R.id.totalCost);
+        tvTotal.setText(new DecimalFormat("##.##").format(getTotalCost()));
     }
 
     public void updateCart(View arg0){
@@ -68,7 +71,20 @@ public class CartActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(CartActivity.this,CartActivity.class);
         startActivity(intent);
-        Toast.makeText(CartActivity.this, "Cart Updated!", Toast.LENGTH_LONG).show();
+        Toast.makeText(CartActivity.this, "Cart updated!", Toast.LENGTH_LONG).show();
+    }
+
+    public double getTotalCost(){
+        EditText etQuantity;
+        TextView tvCost;
+        ListView mainListView = (ListView) findViewById(R.id.listView);
+        double  totalCost = 0;
+        for (int x = 0; x<mainListView.getChildCount();x++) {
+            etQuantity = (EditText) mainListView.getChildAt(x).findViewById(R.id.quantity);
+            tvCost = (TextView) mainListView.getChildAt(x).findViewById(R.id.price);
+            totalCost = totalCost+Integer.parseInt(etQuantity.getText().toString())*Double.parseDouble(tvCost.getText().toString());
+        }
+        return totalCost;
     }
 
     public void goToDashboard(View arg0){
@@ -159,19 +175,21 @@ public class CartActivity extends AppCompatActivity {
                         String ISBN = c.getString("ISBN");
                         String title = c.getString("title");
                         String quantity = c.getString("quantity");
+                        String price = "$"+c.getString("price");
 
                         HashMap<String,String> book = new HashMap<String,String>();
 
                         book.put("ISBN",ISBN);
                         book.put("title",title);
+                        book.put("price",price);
                         book.put("quantity",quantity);
                         bookList.add(book);
                     }
 
                     ListAdapter adapter = new SimpleAdapter(
                             CartActivity.this, bookList, R.layout.table_view_for_cart,
-                            new String[]{"ISBN","title", "quantity"},
-                            new int[]{R.id.ISBN, R.id.title, R.id.quantity}
+                            new String[]{"ISBN","title","price", "quantity"},
+                            new int[]{R.id.ISBN, R.id.title,R.id.price, R.id.quantity}
                     );
 
                     list.setAdapter(adapter);
