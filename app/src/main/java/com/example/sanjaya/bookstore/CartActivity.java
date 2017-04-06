@@ -54,8 +54,6 @@ public class CartActivity extends AppCompatActivity {
         bookList = new ArrayList<HashMap<String,String>>();
         //construct book list
         getCartData(customerId);
-        TextView tvTotal = (TextView)findViewById(R.id.totalCost);
-        tvTotal.setText(new DecimalFormat("##.##").format(getTotalCost()));
     }
 
     public void updateCart(View arg0){
@@ -72,19 +70,6 @@ public class CartActivity extends AppCompatActivity {
         Intent intent = new Intent(CartActivity.this,CartActivity.class);
         startActivity(intent);
         Toast.makeText(CartActivity.this, "Cart updated!", Toast.LENGTH_LONG).show();
-    }
-
-    public double getTotalCost(){
-        EditText etQuantity;
-        TextView tvCost;
-        ListView mainListView = (ListView) findViewById(R.id.listView);
-        double  totalCost = 0;
-        for (int x = 0; x<mainListView.getChildCount();x++) {
-            etQuantity = (EditText) mainListView.getChildAt(x).findViewById(R.id.quantity);
-            tvCost = (TextView) mainListView.getChildAt(x).findViewById(R.id.price);
-            totalCost = totalCost+Integer.parseInt(etQuantity.getText().toString())*Double.parseDouble(tvCost.getText().toString());
-        }
-        return totalCost;
     }
 
     public void goToDashboard(View arg0){
@@ -166,6 +151,7 @@ public class CartActivity extends AppCompatActivity {
                 return  value;
             }
             protected void showList(){
+                double totalCartAmount = 0.0;
                 try {
                     JSONObject jsonObj = new JSONObject(myJSON);
                     books = jsonObj.getJSONArray("result");
@@ -176,7 +162,7 @@ public class CartActivity extends AppCompatActivity {
                         String title = c.getString("title");
                         String quantity = c.getString("quantity");
                         String price = "$"+c.getString("price");
-
+                        totalCartAmount = totalCartAmount + Integer.valueOf(quantity)*Double.valueOf(c.getString("price"));
                         HashMap<String,String> book = new HashMap<String,String>();
 
                         book.put("ISBN",ISBN);
@@ -197,7 +183,8 @@ public class CartActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                TextView tvTotal = (TextView)findViewById(R.id.totalCost);
+                tvTotal.setText(new DecimalFormat("##.##").format(totalCartAmount));
             }
 
         }
