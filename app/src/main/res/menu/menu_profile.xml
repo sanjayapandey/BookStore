@@ -9,7 +9,7 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_profile"
+    <item android:id="@+id/action_cart"
         android:title="@string/action_cart"
         android:orderInCategory="100"
         app:showAsAction="never" />

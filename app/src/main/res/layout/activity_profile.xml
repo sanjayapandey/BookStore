@@ -15,27 +15,52 @@
             android:layout_height="wrap_content" android:orientation="horizontal"
             android:layout_width="fill_parent">
             <TextView
-                android:id="@+id/profile"
+                android:id="@+id/fNameText"
                 android:layout_width   = "wrap_content"
                 android:layout_height  = "wrap_content"
                 android:textAppearance = "?android:attr/textAppearanceMedium"
                 android:textStyle      = "bold"
-                android:text="My Profile:" />
+                android:text="First Name: " />
             <TextView
-                android:id="@+id/nameText1"
+                android:id="@+id/fName"
                 android:layout_width   = "wrap_content"
                 android:layout_height  = "wrap_content"
                 android:textAppearance = "?android:attr/textAppearanceMedium"
-                android:textStyle      = "bold"
                 android:text="First Name" />
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content" android:orientation="horizontal"
+            android:layout_width="fill_parent">
             <TextView
-                android:id="@+id/nameText2"
+                android:id="@+id/mNameText"
                 android:layout_width   = "wrap_content"
                 android:layout_height  = "wrap_content"
                 android:textAppearance = "?android:attr/textAppearanceMedium"
                 android:textStyle      = "bold"
+                android:text="Middle Name: " />
+            <TextView
+                android:id="@+id/mName"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:text="Middle Name" />
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content" android:orientation="horizontal"
+            android:layout_width="fill_parent">
+            <TextView
+                android:id="@+id/lNameText"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:textStyle      = "bold"
+                android:text="Last Name: " />
+            <TextView
+                android:id="@+id/lName"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
                 android:text="Last Name" />
-
         </LinearLayout>
 
         <TextView

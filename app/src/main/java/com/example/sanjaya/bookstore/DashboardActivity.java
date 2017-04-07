@@ -48,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
     JSONArray books = null;
     ArrayList<HashMap<String, String>> bookList;
     private HashSet<String> uniqueCart = new HashSet<>();
+    private int customerId;
 
     ListView list;
 
@@ -55,6 +56,8 @@ public class DashboardActivity extends AppCompatActivity {
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_dashboard);
+        SharedPreferences prefs = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE);
+        customerId = prefs.getInt("customerId",0);
         list = (ListView) findViewById(R.id.listView);
         bookList = new ArrayList<HashMap<String,String>>();
         etSearchKey = (EditText) findViewById( R.id.searchKey);
@@ -83,7 +86,7 @@ public class DashboardActivity extends AppCompatActivity {
                 //check if already exists or not
                 if(uniqueCart.add(cb.getText().toString())) {
                     //save to database
-                    cartSave(cb.getText().toString(),28,1);
+                    cartSave(cb.getText().toString(),customerId,1);
                 }
             }
         }
@@ -110,6 +113,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity( i );
         }
         else if ( id == R.id.action_logout ) {
+            logoutAction();
             Intent i = new Intent( DashboardActivity.this, MainActivity.class );
             startActivity( i );
         }else if ( id == R.id.action_cart){
@@ -223,5 +227,10 @@ public class DashboardActivity extends AppCompatActivity {
 
         ServiceClass serviceClass = new ServiceClass();
         serviceClass.execute(ISBN, String.valueOf(customer_id), String.valueOf(quantity));
+    }
+    private void logoutAction(){
+        SharedPreferences.Editor editor = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
     }
 }

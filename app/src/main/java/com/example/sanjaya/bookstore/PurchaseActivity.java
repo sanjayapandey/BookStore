@@ -2,6 +2,7 @@ package com.example.sanjaya.bookstore;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -48,10 +49,16 @@ public class PurchaseActivity extends AppCompatActivity {
             startActivity( i );
         }
         else if ( id == R.id.action_logout ) {
+            logoutAction();
             Intent i = new Intent( PurchaseActivity.this, MainActivity.class );
             startActivity( i );
         }
         return super.onOptionsItemSelected( item );
+    }
+    private void logoutAction(){
+        SharedPreferences.Editor editor = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
     }
 
 }

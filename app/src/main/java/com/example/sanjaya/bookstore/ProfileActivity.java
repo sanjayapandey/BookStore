@@ -2,6 +2,7 @@ package com.example.sanjaya.bookstore;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,7 @@ import java.util.HashSet;
 public class ProfileActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     private final String PURCHASE_HISTORY_SERVICE_URL = CommonConstant.BASE_URL+"purchaseHistory.php";
-    private final String PURCHASE_SERVICE_URL = CommonConstant.BASE_URL+"profileService.php";
+    private final String PROFILE_SERVICE_URL = CommonConstant.BASE_URL+"profileService.php";
     ArrayList<HashMap<String, String>> bookList;
     private String myJSON;
     JSONArray books = null;
@@ -42,11 +43,24 @@ public class ProfileActivity extends AppCompatActivity {
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_profile);
-        customerId = 28;
+        //add user profile data
+        SharedPreferences prefs = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE);
+        customerId = prefs.getInt("customerId",0);
+        String firstName = prefs.getString("firstName","");
+        String middleName = prefs.getString("middleName","");
+        String lastName = prefs.getString("lastName","");
+
         list = (ListView) findViewById(R.id.listView);
         bookList = new ArrayList<HashMap<String,String>>();
         //construct book list
         getPurchaseData(customerId);
+        //set userData
+        final TextView tvView1 = (TextView) findViewById( R.id.fName );
+        tvView1.setText( firstName);
+        final TextView tvView2 = (TextView) findViewById( R.id.mName );
+        tvView2.setText( middleName);
+        final TextView tvView3 = (TextView) findViewById( R.id.lName );
+        tvView3.setText( lastName);
     }
 
     @Override
@@ -72,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity( i );
         }
         else if ( id == R.id.action_logout ) {
+            logoutAction();
             Intent i = new Intent( ProfileActivity.this, MainActivity.class );
             startActivity( i );
         }
@@ -156,12 +171,17 @@ public class ProfileActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 TextView tvTotal = (TextView)findViewById(R.id.totalCost);
-                tvTotal.setText(new DecimalFormat("##.##").format(totalCartAmount));
+                tvTotal.setText("$"+new DecimalFormat("##.##").format(totalCartAmount));
             }
 
         }
 
         ServiceClass serviceClass= new ServiceClass();
         serviceClass.execute(String.valueOf(customerId));
+    }
+    private void logoutAction(){
+        SharedPreferences.Editor editor = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
     }
 }

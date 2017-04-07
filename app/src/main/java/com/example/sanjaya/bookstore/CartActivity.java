@@ -50,7 +50,8 @@ public class CartActivity extends AppCompatActivity {
     public void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_cart);
-        customerId = 28;
+        SharedPreferences prefs = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE);
+        customerId = prefs.getInt("customerId",0);
         list = (ListView) findViewById(R.id.listView);
         bookList = new ArrayList<HashMap<String,String>>();
         //construct book list
@@ -105,6 +106,7 @@ public class CartActivity extends AppCompatActivity {
             startActivity( i );
         }
         else if ( id == R.id.action_logout ) {
+            logoutAction();
             Intent i = new Intent( CartActivity.this, MainActivity.class );
             startActivity( i );
         }
@@ -189,7 +191,7 @@ public class CartActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 TextView tvTotal = (TextView)findViewById(R.id.totalCost);
-                tvTotal.setText(new DecimalFormat("##.##").format(totalCartAmount));
+                tvTotal.setText("$"+new DecimalFormat("##.##").format(totalCartAmount));
             }
 
         }
@@ -262,5 +264,10 @@ public class CartActivity extends AppCompatActivity {
 
         ServiceClass serviceClass= new ServiceClass();
         serviceClass.execute(String.valueOf(customerId));
+    }
+    private void logoutAction(){
+        SharedPreferences.Editor editor = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
     }
 }
