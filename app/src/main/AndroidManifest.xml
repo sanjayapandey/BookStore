@@ -27,5 +27,7 @@
             android:label="@string/action_cart" />
         <activity android:name =".PurchaseActivity"
             android:label="@string/action_purchase" />
+        <activity android:name =".ProfileActivity"
+            android:label="@string/action_profile" />
     </application>
 </manifest>

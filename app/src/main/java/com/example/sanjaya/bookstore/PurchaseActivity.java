@@ -43,8 +43,8 @@ public class PurchaseActivity extends AppCompatActivity {
         if ( id == R.id.action_dashboard ) {
             Intent i = new Intent( PurchaseActivity.this, DashboardActivity.class );
             startActivity( i );
-        }else if ( id == R.id.action_profile ) {
-            Intent i = new Intent( PurchaseActivity.this, DashboardActivity.class );
+        }else if ( id == R.id.action_cart ) {
+            Intent i = new Intent( PurchaseActivity.this, CartActivity.class );
             startActivity( i );
         }
         else if ( id == R.id.action_logout ) {

@@ -101,7 +101,7 @@ public class CartActivity extends AppCompatActivity {
             Intent i = new Intent( CartActivity.this, DashboardActivity.class );
             startActivity( i );
         }else if ( id == R.id.action_profile ) {
-            Intent i = new Intent( CartActivity.this, DashboardActivity.class );
+            Intent i = new Intent( CartActivity.this, ProfileActivity.class );
             startActivity( i );
         }
         else if ( id == R.id.action_logout ) {

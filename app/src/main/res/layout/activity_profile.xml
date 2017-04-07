@@ -12,6 +12,41 @@
         android:gravity       = "center_vertical|center_horizontal">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content" android:orientation="horizontal"
+            android:layout_width="fill_parent">
+            <TextView
+                android:id="@+id/profile"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:textStyle      = "bold"
+                android:text="My Profile:" />
+            <TextView
+                android:id="@+id/nameText1"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:textStyle      = "bold"
+                android:text="First Name" />
+            <TextView
+                android:id="@+id/nameText2"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:textStyle      = "bold"
+                android:text="Last Name" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width   = "wrap_content"
+            android:layout_height  = "wrap_content"
+            android:textAppearance = "?android:attr/textAppearanceMedium"
+            android:textStyle      = "bold"
+            android:text="Purchase Information" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -29,18 +64,18 @@
                     android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:layout_margin="4dip"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:textStyle      = "bold"
-                    android:text="ISBN" />
+                    android:text="Title" />
                 <TextView
                     android:id="@+id/quantity"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:layout_margin="4dip"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textStyle      = "bold"
-                    android:text="Title" />
+                    android:text="Quantity" />
 
                 <TextView
                     android:id="@+id/price"
@@ -48,24 +83,15 @@
                     android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:layout_margin="4dip"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:textStyle      = "bold"
-                    android:text="Price" />
-                <TextView
-                    android:id="@+id/number"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:padding="3dip"
-                    android:layout_margin="4dip"
-                    android:layout_weight="1"
-                    android:textStyle      = "bold"
-                    android:text="Number" />
+                    android:text="Amount" />
 
             </TableRow>
         </LinearLayout>
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="400dp"
             android:id="@+id/listView" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -77,7 +103,7 @@
                 android:layout_height  = "wrap_content"
                 android:textAppearance = "?android:attr/textAppearanceMedium"
                 android:textStyle      = "bold"
-                android:text="Total Cost:" />
+                android:text="Total Amount Spend:" />
 
             <TextView
                 android:id="@+id/totalCost"
@@ -88,28 +114,6 @@
                 android:text="Total Cost:" />
 
         </LinearLayout>
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_height="wrap_content" android:orientation="horizontal"
-            android:layout_width="fill_parent">
-            <Button
-                android:layout_width  = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text          = "UPDATE CART"
-                android:id            = "@+id/addToCart"
-                android:layout_weight="2"
-                android:onClick="updateCart" />
-
-            <Button
-                android:layout_width  = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text          = "PURCHASE ITEMS"
-                android:id            = "@+id/purchase"
-                android:layout_weight="2"
-                android:onClick="purchase" />
-
-        </LinearLayout>
-
 
     </LinearLayout>
 </ScrollView>
