@@ -5,13 +5,18 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -189,7 +194,28 @@ public class DashboardActivity extends AppCompatActivity {
                             DashboardActivity.this, bookList, R.layout.table_view,
                             new String[]{"ISBN","title"},
                             new int[]{R.id.checkbox, R.id.title}
-                    );
+                    ){
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            // get filled view from SimpleAdapter
+                            View itemView=super.getView(position, convertView, parent);
+                            // find our button there
+                            TextView tv = (TextView) itemView.findViewById(R.id.title);
+                            DashboardActivity.makeTextViewHyperlink(tv);
+                            final CheckBox cb = (CheckBox)itemView.findViewById(R.id.checkbox);
+                            tv.setOnClickListener( new View.OnClickListener( ) {
+                                @Override
+                                public void onClick( View v ) {
+
+                                    Intent intent = new Intent( DashboardActivity.this, BookDetailActivity.class );
+                                    intent.putExtra( "ISBN", cb.getText().toString( ) );
+                                    startActivity( intent );
+                                }
+                            } );
+                            return itemView;
+                        }
+                    };
 
                     list.setAdapter(adapter);
 
@@ -232,5 +258,15 @@ public class DashboardActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(CommonConstant.MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.clear();
         editor.commit();
+    }
+
+    // Sets a hyperlink style to the textview.
+    public static void makeTextViewHyperlink( TextView tv ) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder( );
+        ssb.append( tv.getText( ) );
+        ssb.setSpan( new URLSpan("#"), 0, ssb.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+        tv.setText( ssb, TextView.BufferType.SPANNABLE );
+        tv.setLinkTextColor(Color.BLUE);
     }
 }

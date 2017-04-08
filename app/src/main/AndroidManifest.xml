@@ -29,5 +29,7 @@
             android:label="@string/action_purchase" />
         <activity android:name =".ProfileActivity"
             android:label="@string/action_profile" />
+        <activity android:name =".BookDetailActivity"
+            android:label="@string/action_book_detail" />
     </application>
 </manifest>
