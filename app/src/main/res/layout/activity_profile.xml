@@ -15,6 +15,23 @@
             android:layout_height="wrap_content" android:orientation="horizontal"
             android:layout_width="fill_parent">
             <TextView
+                android:id="@+id/idText"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:textStyle      = "bold"
+                android:text="Customer Id: " />
+            <TextView
+                android:id="@+id/userId"
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:textAppearance = "?android:attr/textAppearanceMedium"
+                android:text="Id" />
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content" android:orientation="horizontal"
+            android:layout_width="fill_parent">
+            <TextView
                 android:id="@+id/fNameText"
                 android:layout_width   = "wrap_content"
                 android:layout_height  = "wrap_content"

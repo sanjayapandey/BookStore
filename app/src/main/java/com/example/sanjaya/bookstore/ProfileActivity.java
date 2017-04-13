@@ -61,6 +61,9 @@ public class ProfileActivity extends AppCompatActivity {
         tvView2.setText( middleName);
         final TextView tvView3 = (TextView) findViewById( R.id.lName );
         tvView3.setText( lastName);
+        final TextView tvView4 = (TextView) findViewById( R.id.userId );
+        tvView4.setText( String.valueOf(customerId));
+
     }
 
     @Override
